@@ -32,30 +32,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Log.d(TAG, "setContentView");
-		/*AsyncTask<Void, Integer, DataList> fetchDataTask = new AsyncTask<Void, Integer, DataList>(){
-
-			@Override
-			protected DataList doInBackground(Void... params) {
-				return new HttpDataListProvider().getDataList();
-			}
-
-			@Override
-			protected void onPostExecute(DataList result) {
-				super.onPostExecute(result);
-				Log.d(TAG, "fetchDataTask.onPostExecute");
-				//TextView mainTextView = (TextView) MainActivity.this.findViewById(R.id.main_text_view);
-				//mainTextView.setText(result.getTitle());
-				final ListView listview = (ListView) MainActivity.this.findViewById(R.id.listview);
-
-				ArrayAdapter<DataList.Snippet> adapter = new ArrayAdapter<DataList.Snippet>(
-						MainActivity.this, R.layout.list_row, R.id.secondLine, result.getRows());
-
-				listview.setAdapter(adapter);
-			}
-
-		};
-		fetchDataTask.execute();
-		Log.d(TAG, "fetchDataTask.execute triggered");*/
 
 		final ListView listview = (ListView) MainActivity.this.findViewById(R.id.listview);
 
