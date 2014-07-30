@@ -8,6 +8,7 @@ import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Loader;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -162,7 +164,12 @@ public class MainActivity extends Activity {
 			}
 
 			Snippet item = getItem(position);
-			//((ImageView)view.findViewById(R.id.icon)).setImageDrawable(item.getIcon());
+			if(item.getImageHref() == null){
+				((ImageView)view.findViewById(R.id.icon)).setImageDrawable(null);	
+			} else {
+				Drawable d = getContext().getResources().getDrawable(R.drawable.ic_launcher);
+				((ImageView)view.findViewById(R.id.icon)).setImageDrawable(d);
+			}
 			((TextView)view.findViewById(R.id.firstLine)).setText(item.getTitle());
 			((TextView)view.findViewById(R.id.secondLine)).setText(item.getDescription());
 

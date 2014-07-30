@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/firstLine"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -14,27 +14,25 @@
         android:text="First line placeholder"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/secondLine"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/firstLine"
-        android:ellipsize="marquee"
-        android:text="Second line placeholder"
-        android:textSize="12sp" />
-
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/firstLine"
         android:layout_marginRight="6dip"
-        android:layout_toRightOf="@id/secondLine"
         android:contentDescription="An Image"
         android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/secondLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/firstLine"
+        android:layout_toLeftOf="@id/icon"
+        android:ellipsize="marquee"
+        android:text="Second line placeholder"
+        android:textSize="12sp" />
 
 </RelativeLayout>
