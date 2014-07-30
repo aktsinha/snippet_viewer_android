@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Loader;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +46,15 @@ public class MainActivity extends Activity {
 		// Prepare the loader.  Either re-connect with an existing one,
 		// or start a new one.
 		getLoaderManager().initLoader(0, null, new AppListLoaderCallbacks());
+		
+		SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshListener());
+        
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, 
+                android.R.color.holo_green_light, 
+                android.R.color.holo_orange_light, 
+                android.R.color.holo_red_light);
+        
 		Log.d(TAG, "onCreate end");
 	}
 
@@ -52,6 +63,15 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	private class SwipeRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+
+		@Override
+		public void onRefresh() {
+			Log.d(TAG, "onRefresh");
+			MainActivity.this.getLoaderManager().getLoader(0).onContentChanged();
+		}
 	}
 
 	private class AppListLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<Snippet>> {
