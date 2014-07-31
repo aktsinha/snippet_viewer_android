@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Loader;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +29,7 @@ public class MainActivity extends Activity {
 
 	// This is the Adapter being used to display the list's data.
 	private AppListAdapter mAdapter;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +37,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Log.d(TAG, "setContentView");
 
-		final ListView listview = (ListView) MainActivity.this.findViewById(R.id.listview);
-
-		// Create an adapter we will use to display the loaded data.
-		mAdapter = new AppListAdapter(this);
-		listview.setAdapter(mAdapter);
-
-		// Prepare the loader.  Either re-connect with an existing one,
-		// or start a new one.
-		getLoaderManager().initLoader(0, null, new AppListLoaderCallbacks());
-		
 		SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(new SwipeRefreshListener());
         
@@ -55,13 +45,26 @@ public class MainActivity extends Activity {
                 android.R.color.holo_orange_light, 
                 android.R.color.holo_red_light);
         
-		Log.d(TAG, "onCreate end");
+        //Show that data is being loaded
+        swipeLayout.setRefreshing(true);
+        
+        
+		final ListView listview = (ListView) MainActivity.this.findViewById(R.id.listview);
+		// Create an adapter we will use to display the loaded data.
+		mAdapter = new AppListAdapter(this);
+		listview.setAdapter(mAdapter);
+		
+		// Prepare the loader.  Either re-connect with an existing one,
+		// or start a new one.
+		getLoaderManager().initLoader(0, null, new AppListLoaderCallbacks());
+        
+		Log.d(TAG, "onCreate done!");
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	
@@ -86,6 +89,13 @@ public class MainActivity extends Activity {
 			Log.d(TAG, "onLoadFinished");
 			// Set the new data in the adapter.
 			mAdapter.setData(data);
+			
+			SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) MainActivity.this.findViewById(
+					R.id.swipe_container);
+			if(swipeLayout.isRefreshing()) {
+				Log.d(TAG, "Swipe Refresh was in progress");
+				swipeLayout.setRefreshing(false);
+			}
 		}
 
 		@Override public void onLoaderReset(Loader<List<Snippet>> loader) {
