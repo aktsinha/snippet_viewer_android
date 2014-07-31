@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +30,10 @@ import android.widget.TextView;
 
 import com.itaas.ankit.snippetviewer.DataList.Snippet;
 
+//TODO: Title in action bar
+//TODO: Right arrow in every row
+//TODO: MAX image size
+//TODO: Loading indicator
 public class MainActivity extends Activity {
 
 	private static final String TAG = MainActivity.class.getName();
@@ -210,6 +213,11 @@ public class MainActivity extends Activity {
 			if(imageURI == null){
 				imageView.setImageDrawable(null);	
 			} else {
+				Drawable loadingIndicatorDrawable = getContext().getResources().getDrawable(
+						android.R.drawable.progress_indeterminate_horizontal);
+				imageView.setImageDrawable(loadingIndicatorDrawable);
+				
+				//load the real image in a background thread
 				this.loadImage(imageURI, imageView);
 				
 			}
