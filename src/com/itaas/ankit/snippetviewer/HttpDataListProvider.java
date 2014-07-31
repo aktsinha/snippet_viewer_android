@@ -23,12 +23,20 @@ import com.itaas.ankit.snippetviewer.PojoDataList.PojoSnippet;
 public class HttpDataListProvider implements DataListProvider {
 	private static final String TAG = HttpDataListProvider.class.getName();
 	//public static boolean isOdd = false;
+	
+	private URI uri;
 
-	public static final String DATA_URI_STRING = "https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json?dl=1";
+	//public static final String DATA_URI_STRING = "https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json?dl=1";
 
-	public URI getURI() throws URISyntaxException{
-		return new URI(DATA_URI_STRING);
+	public HttpDataListProvider(URI uri) {
+		this.uri = uri;
 	}
+	
+	public URI getURI() throws URISyntaxException{
+		return uri;
+	}
+	
+	
 
 	@Override
 	public DataList getDataList() {
@@ -52,6 +60,11 @@ public class HttpDataListProvider implements DataListProvider {
 		String content = null;
 		try {
 			Log.d(TAG, "URI:" + getURI());
+			
+			if(getURI() == null){
+				return null;
+			}
+			
 			HttpClient client = new DefaultHttpClient();
 			HttpGet get = new HttpGet(getURI());
 			BasicResponseHandler response = new BasicResponseHandler();

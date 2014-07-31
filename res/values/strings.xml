@@ -7,5 +7,11 @@
     <string name="hello_world">Hello world!</string>
     
     <string name="snippet_image_content_description">Some image</string>
+    
+    <string name="default_data_url">https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json?dl=1</string>
+    <string name="preference_key_url">prefDataURL</string>
+    <string name="preference_title_url">Data URL</string>
+    <string name="preference_summary_url">The URL for the data</string>
+    
 
 </resources>

@@ -4,22 +4,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -70,9 +74,19 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	 @Override
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	  
+	  Intent intent = new Intent();
+	        intent.setClass(MainActivity.this, FragmentPreferences.class);
+	        startActivity(intent); 
+	  
+	        return true;
+	 }
 	
 	private class SwipeRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -139,12 +153,29 @@ public class MainActivity extends Activity {
 		 */
 		@Override public DataList loadInBackground() {
 			Log.d(TAG, "loadInBackground");
-			DataList dataList = new HttpDataListProvider().getDataList();
+			URI dataURI = getDataURI();
+			DataList dataList = new HttpDataListProvider(dataURI).getDataList();
 			
 			String numRows = dataList == null? "null" : ""+dataList.getRows().length;
 			Log.d(TAG, "Got result count: " + numRows);
 			
 			return dataList;
+		}
+
+		private URI getDataURI() {
+			URI dataURI = null;
+			try {
+				String dataURLKey = this.getContext().getString(R.string.preference_key_url);
+				String defaultDataURL = this.getContext().getString(R.string.default_data_url);
+				
+				String dataURIString = PreferenceManager.getDefaultSharedPreferences(
+						this.getContext()).getString(dataURLKey, defaultDataURL);
+				
+				dataURI = new URI(dataURIString);
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+			return dataURI;
 		}
 
 		/**
