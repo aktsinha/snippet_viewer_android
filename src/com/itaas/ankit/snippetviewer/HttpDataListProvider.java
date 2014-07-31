@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -19,12 +18,11 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.itaas.ankit.snippetviewer.DataList.Snippet;
 import com.itaas.ankit.snippetviewer.PojoDataList.PojoSnippet;
 
 public class HttpDataListProvider implements DataListProvider {
 	private static final String TAG = HttpDataListProvider.class.getName();
-	public static boolean isOdd = false;
+	//public static boolean isOdd = false;
 
 	public static final String DATA_URI_STRING = "https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json?dl=1";
 
@@ -37,15 +35,15 @@ public class HttpDataListProvider implements DataListProvider {
 		String content = fetchDataString();
 		DataList dataList = parseJson(content);
 		
-		if(isOdd && dataList.getRows().length > 1){
+		/*if(isOdd && dataList.getRows().length > 1){
 			
 			Snippet[] snippetArr = Arrays.copyOfRange(
 					dataList.getRows(), 1, dataList.getRows().length);
 			
 			dataList.setRows(snippetArr);
-			Log.e(TAG, "TODO mischief: " + dataList.getRows().length);
+			Log.e(TAG, "mischief: " + dataList.getRows().length);
 		}
-		isOdd = !isOdd;
+		isOdd = !isOdd;*/
 		
 		return dataList;
 	}

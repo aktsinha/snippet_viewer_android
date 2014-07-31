@@ -32,7 +32,6 @@ import com.itaas.ankit.snippetviewer.DataList.Snippet;
 
 //TODO: Title in action bar
 //TODO: Right arrow in every row
-//TODO: MAX image size
 //TODO: Loading indicator
 public class MainActivity extends Activity {
 
