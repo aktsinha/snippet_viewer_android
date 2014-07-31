@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -87,18 +86,20 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private class AppListLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<Snippet>> {
+	private class AppListLoaderCallbacks implements LoaderManager.LoaderCallbacks<DataList> {
 		
-		@Override public Loader<List<Snippet>> onCreateLoader(int id, Bundle args) {
+		@Override public Loader<DataList> onCreateLoader(int id, Bundle args) {
 			Log.d(TAG, "onCreateLoader");
 			// This is called when a new Loader needs to be created.
 			return new AppListLoader(MainActivity.this);
 		}
 
-		@Override public void onLoadFinished(Loader<List<Snippet>> loader, List<Snippet> data) {
+		@Override public void onLoadFinished(Loader<DataList> loader, DataList data) {
 			Log.d(TAG, "onLoadFinished");
 			// Set the new data in the adapter.
 			mAdapter.setData(data);
+			
+			MainActivity.this.getActionBar().setTitle(data.getTitle());
 			
 			SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) MainActivity.this.findViewById(
 					R.id.swipe_container);
@@ -108,7 +109,7 @@ public class MainActivity extends Activity {
 			}
 		}
 
-		@Override public void onLoaderReset(Loader<List<Snippet>> loader) {
+		@Override public void onLoaderReset(Loader<DataList> loader) {
 			Log.d(TAG, "onLoaderReset");
 			// Clear the data in the adapter.
 			mAdapter.setData(null);
@@ -118,7 +119,7 @@ public class MainActivity extends Activity {
 	/**
 	 * A custom Loader for the Data List
 	 */
-	public static class AppListLoader extends AsyncTaskLoader<List<Snippet>> {
+	public static class AppListLoader extends AsyncTaskLoader<DataList> {
 
 		private static final String TAG = AppListLoader.class.getName();
 
@@ -132,12 +133,13 @@ public class MainActivity extends Activity {
 		 * called in a background thread and should generate a new set of
 		 * data to be published by the loader.
 		 */
-		@Override public List<Snippet> loadInBackground() {
+		@Override public DataList loadInBackground() {
 			Log.d(TAG, "loadInBackground");
-			DataList dataList = new HttpDataListProvider().getDataList();
-			List<Snippet> result = Arrays.asList(dataList.getRows());
-			Log.d(TAG, "Got result count: "+ result.size());
-			return result;
+			final DataList dataList = new HttpDataListProvider().getDataList();
+			//List<Snippet> result = Arrays.asList(dataList.getRows());
+			Log.d(TAG, "Got result count: "+ dataList.getRows().length);
+			
+			return dataList;
 		}
 
 		/**
@@ -182,11 +184,11 @@ public class MainActivity extends Activity {
 			mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 
-		public void setData(List<Snippet> data) {
+		public void setData(DataList data) {
 			Log.d(TAG, "setData");
 			clear();
 			if (data != null) {
-				addAll(data);
+				addAll(Arrays.asList(data.getRows()));
 			}
 		}
 
