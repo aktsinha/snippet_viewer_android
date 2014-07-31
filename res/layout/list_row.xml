@@ -17,16 +17,28 @@
         android:typeface="serif" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/icon_next_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/firstLine"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/snippet_image_content_description"
+        android:src="@drawable/ic_action_next_item" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstLine"
         android:layout_marginRight="6dip"
+        android:layout_toLeftOf="@id/icon_next_item"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/snippet_image_content_description"
         android:maxHeight="90dp"
         android:maxWidth="120dp"
-        android:adjustViewBounds="true"
+        android:minHeight="30dp"
+        android:minWidth="40dp"
         android:scaleType="centerInside"
         android:src="@android:drawable/progress_indeterminate_horizontal" />
 
@@ -38,7 +50,6 @@
         android:layout_below="@id/firstLine"
         android:layout_toLeftOf="@id/icon"
         android:ellipsize="marquee"
-        android:text="Second line placeholder"
         android:textSize="12sp" />
 
 </RelativeLayout>

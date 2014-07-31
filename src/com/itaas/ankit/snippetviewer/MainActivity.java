@@ -96,17 +96,24 @@ public class MainActivity extends Activity {
 
 		@Override public void onLoadFinished(Loader<DataList> loader, DataList data) {
 			Log.d(TAG, "onLoadFinished");
-			// Set the new data in the adapter.
-			mAdapter.setData(data);
-			
-			MainActivity.this.getActionBar().setTitle(data.getTitle());
-			
+
+			//Dismiss the refresh indicator
 			SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) MainActivity.this.findViewById(
 					R.id.swipe_container);
 			if(swipeLayout.isRefreshing()) {
 				Log.d(TAG, "Swipe Refresh was in progress");
 				swipeLayout.setRefreshing(false);
 			}
+			
+			if(data == null){
+				Log.d(TAG, "onLoadFinished: data is null");
+				return;
+			}
+			
+			// Set the new data in the adapter.
+			mAdapter.setData(data);
+			
+			MainActivity.this.getActionBar().setTitle(data.getTitle());
 		}
 
 		@Override public void onLoaderReset(Loader<DataList> loader) {
@@ -135,9 +142,10 @@ public class MainActivity extends Activity {
 		 */
 		@Override public DataList loadInBackground() {
 			Log.d(TAG, "loadInBackground");
-			final DataList dataList = new HttpDataListProvider().getDataList();
-			//List<Snippet> result = Arrays.asList(dataList.getRows());
-			Log.d(TAG, "Got result count: "+ dataList.getRows().length);
+			DataList dataList = new HttpDataListProvider().getDataList();
+			
+			String numRows = dataList == null? "null" : ""+dataList.getRows().length;
+			Log.d(TAG, "Got result count: " + numRows);
 			
 			return dataList;
 		}

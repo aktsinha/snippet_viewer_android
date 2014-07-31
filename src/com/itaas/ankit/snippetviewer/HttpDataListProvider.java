@@ -73,6 +73,10 @@ public class HttpDataListProvider implements DataListProvider {
 	
 	public DataList parseJson(String jsonString) {
 		Log.d(TAG, "parseJson");
+		
+		if(jsonString == null){
+			return null;
+		}
 
 		GsonBuilder gson = new GsonBuilder();
 		gson.registerTypeAdapter(DataList.Snippet.class, new SnippetDeserializer());
