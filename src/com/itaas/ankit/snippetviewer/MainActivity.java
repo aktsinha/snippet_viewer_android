@@ -1,5 +1,10 @@
 package com.itaas.ankit.snippetviewer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +13,10 @@ import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Loader;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -194,16 +202,70 @@ public class MainActivity extends Activity {
 			}
 
 			Snippet item = getItem(position);
-			if(item.getImageHref() == null){
-				((ImageView)view.findViewById(R.id.icon)).setImageDrawable(null);	
+			final URI imageURI = item.getImageHref();
+			final ImageView imageView = ((ImageView)view.findViewById(R.id.icon));
+			
+			imageView.setTag(imageURI);
+			
+			if(imageURI == null){
+				imageView.setImageDrawable(null);	
 			} else {
-				Drawable d = getContext().getResources().getDrawable(R.drawable.ic_launcher);
-				((ImageView)view.findViewById(R.id.icon)).setImageDrawable(d);
+				this.loadImage(imageURI, imageView);
+				
 			}
 			((TextView)view.findViewById(R.id.firstLine)).setText(item.getTitle());
 			((TextView)view.findViewById(R.id.secondLine)).setText(item.getDescription());
 
 			return view;
+		}
+
+		private void loadImage(final URI imageURI, final ImageView imageView) {
+			//Drawable d = getContext().getResources().getDrawable(R.drawable.ic_launcher);
+			//((ImageView)view.findViewById(R.id.icon)).setImageDrawable(d);
+			
+			AsyncTask<Object, Void, Bitmap> fetchImageTask = new AsyncTask<Object, Void, Bitmap>() {
+
+				@Override
+				protected Bitmap doInBackground(Object... params) {
+					URI imageURI = (URI) params[0];
+					ImageView imageView = (ImageView) params[1];
+					
+					Log.d(TAG, "doInBackground: imageURI: "+ imageURI + ", tag: " + imageView.getTag());
+					
+					if(!imageURI.equals(imageView.getTag())){
+						Log.d(TAG, "imageView has been reused. Quit");
+						return null;
+					}
+					
+					try {
+						Bitmap bitmap = BitmapFactory.decodeStream(
+								(InputStream) imageURI.toURL().getContent());
+						return bitmap;
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
+				
+				@Override
+				protected void onPostExecute(Bitmap bm) {
+					if(bm == null){
+						Log.d(TAG, "Got null bitmap. Quit");
+						return;
+					}
+					if(!imageURI.equals(imageView.getTag())){
+						Log.d(TAG, "imageView has been reused. Quit");
+						return;
+					}
+					
+					imageView.setImageBitmap(bm);
+				};
+				
+			};
+			fetchImageTask.executeOnExecutor(
+					AsyncTask.THREAD_POOL_EXECUTOR, imageURI, imageView);
 		}
 	}
 
