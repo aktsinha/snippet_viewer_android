@@ -29,9 +29,6 @@ import android.widget.TextView;
 
 import com.itaas.ankit.snippetviewer.DataList.Snippet;
 
-//TODO: Title in action bar
-//TODO: Right arrow in every row
-//TODO: Loading indicator
 public class MainActivity extends Activity {
 
 	private static final String TAG = MainActivity.class.getName();
@@ -215,7 +212,7 @@ public class MainActivity extends Activity {
 
 			Snippet item = getItem(position);
 			final URI imageURI = item.getImageHref();
-			final ImageView imageView = ((ImageView)view.findViewById(R.id.icon));
+			final ImageView imageView = ((ImageView)view.findViewById(R.id.row_image));
 			
 			imageView.setTag(imageURI);
 			
@@ -230,8 +227,8 @@ public class MainActivity extends Activity {
 				this.loadImage(imageURI, imageView);
 				
 			}
-			((TextView)view.findViewById(R.id.firstLine)).setText(item.getTitle());
-			((TextView)view.findViewById(R.id.secondLine)).setText(item.getDescription());
+			((TextView)view.findViewById(R.id.row_title)).setText(item.getTitle());
+			((TextView)view.findViewById(R.id.row_description)).setText(item.getDescription());
 
 			return view;
 		}

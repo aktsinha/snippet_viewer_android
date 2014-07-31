@@ -5,7 +5,7 @@
     android:padding="6dip" >
 
     <TextView
-        android:id="@+id/firstLine"
+        android:id="@+id/row_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -17,22 +17,22 @@
         android:typeface="serif" />
 
     <ImageView
-        android:id="@+id/icon_next_item"
+        android:id="@+id/icon_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/firstLine"
+        android:layout_below="@id/row_title"
         android:adjustViewBounds="true"
         android:contentDescription="@string/snippet_image_content_description"
         android:src="@drawable/ic_action_next_item" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/row_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/firstLine"
+        android:layout_below="@id/row_title"
         android:layout_marginRight="6dip"
-        android:layout_toLeftOf="@id/icon_next_item"
+        android:layout_toLeftOf="@id/icon_next"
         android:adjustViewBounds="true"
         android:contentDescription="@string/snippet_image_content_description"
         android:maxHeight="90dp"
@@ -43,12 +43,12 @@
         android:src="@android:drawable/progress_indeterminate_horizontal" />
 
     <TextView
-        android:id="@+id/secondLine"
+        android:id="@+id/row_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/firstLine"
-        android:layout_toLeftOf="@id/icon"
+        android:layout_below="@id/row_title"
+        android:layout_toLeftOf="@id/row_image"
         android:ellipsize="marquee"
         android:textSize="12sp" />
 
