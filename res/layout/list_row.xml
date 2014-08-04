@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/row_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -21,8 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/row_title"
-        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/snippet_image_content_description"
         android:src="@drawable/ic_action_next_item" />
 
