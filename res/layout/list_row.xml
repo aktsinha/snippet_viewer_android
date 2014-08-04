@@ -39,8 +39,6 @@
         android:contentDescription="@string/snippet_image_content_description"
         android:maxHeight="90dp"
         android:maxWidth="120dp"
-        android:minHeight="30dp"
-        android:minWidth="40dp"
         android:scaleType="centerInside"
         android:src="@android:drawable/progress_indeterminate_horizontal" />
 
