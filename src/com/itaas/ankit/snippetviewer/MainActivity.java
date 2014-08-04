@@ -33,6 +33,12 @@ import android.widget.TextView;
 
 import com.itaas.ankit.snippetviewer.DataList.Snippet;
 
+/**
+ * The entry point of the application
+ * Displays the data (eg. https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json) in a list view 
+ * @author Ankit Sinha
+ *
+ */
 public class MainActivity extends Activity {
 
 	private static final String TAG = MainActivity.class.getName();
@@ -265,8 +271,6 @@ public class MainActivity extends Activity {
 		}
 
 		private void loadImage(final URI imageURI, final ImageView imageView) {
-			//Drawable d = getContext().getResources().getDrawable(R.drawable.ic_launcher);
-			//((ImageView)view.findViewById(R.id.icon)).setImageDrawable(d);
 			
 			AsyncTask<Object, Void, Bitmap> fetchImageTask = new AsyncTask<Object, Void, Bitmap>() {
 
