@@ -38,7 +38,6 @@ import com.itaas.ankit.snippetviewer.DataList.Snippet;
  * The entry point of the application
  * Displays the data (eg. https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json) in a list view 
  * @author Ankit Sinha
- *
  */
 public class MainActivity extends Activity {
 

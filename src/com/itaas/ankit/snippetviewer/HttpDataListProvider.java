@@ -20,6 +20,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.itaas.ankit.snippetviewer.PojoDataList.PojoSnippet;
 
+/**
+ * A DataListProvider that fetches data over HTTP
+ * (eg. https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json)
+ * @author Ankit Sinha
+ */
 public class HttpDataListProvider implements DataListProvider {
 	private static final String TAG = HttpDataListProvider.class.getName();
 	

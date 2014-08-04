@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+/**
+ * A simple settings screen that allows the data URL to configured
+ * @author Ankit Sinha
+ */
 public class FragmentPreferences extends Activity {
 
     @Override

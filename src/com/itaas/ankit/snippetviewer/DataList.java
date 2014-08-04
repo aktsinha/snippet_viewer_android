@@ -3,6 +3,11 @@ package com.itaas.ankit.snippetviewer;
 
 import java.net.URI;
 
+/**
+ * Represents the data structure that will be displayed by the app 
+ * (eg. https://www.dropbox.com/s/g41ldl6t0afw9dv/facts.json)
+ * @author Ankit Sinha
+ */
 public interface DataList {
 	public String getTitle();
 	public void setTitle(String title);

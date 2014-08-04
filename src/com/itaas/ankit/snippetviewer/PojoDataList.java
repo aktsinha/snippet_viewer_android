@@ -3,6 +3,10 @@ package com.itaas.ankit.snippetviewer;
 
 import java.net.URI;
 
+/**
+ * A Pojo implementation of DataList
+ * @author Ankit Sinha
+ */
 public class PojoDataList implements DataList {
 	
 	private String title;
