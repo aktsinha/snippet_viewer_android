@@ -30,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itaas.ankit.snippetviewer.DataList.Snippet;
 
@@ -123,7 +124,11 @@ public class MainActivity extends Activity {
 			}
 			
 			if(data == null){
-				Log.d(TAG, "onLoadFinished: data is null");
+				Log.w(TAG, "onLoadFinished: data is null");
+				Toast.makeText(
+						MainActivity.this, 
+						MainActivity.this.getString(R.string.msg_failed_to_load_data), 
+						Toast.LENGTH_LONG).show();
 				return;
 			}
 			
