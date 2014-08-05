@@ -1,4 +1,4 @@
-package com.itaas.ankit.snippetviewer;
+package com.itaas.ankit.snippetviewer.data;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -18,7 +18,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.itaas.ankit.snippetviewer.PojoDataList.PojoSnippet;
+import com.itaas.ankit.snippetviewer.data.PojoDataList.PojoSnippet;
 
 /**
  * A DataListProvider that fetches data over HTTP

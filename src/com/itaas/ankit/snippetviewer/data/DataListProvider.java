@@ -1,4 +1,4 @@
-package com.itaas.ankit.snippetviewer;
+package com.itaas.ankit.snippetviewer.data;
 
 /**
  * Abstraction for fetching the data displayed by the app

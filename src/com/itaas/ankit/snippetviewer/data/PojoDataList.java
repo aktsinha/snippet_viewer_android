@@ -1,4 +1,4 @@
-package com.itaas.ankit.snippetviewer;
+package com.itaas.ankit.snippetviewer.data;
 
 
 import java.net.URI;

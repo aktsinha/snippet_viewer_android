@@ -1,8 +1,10 @@
-package com.itaas.ankit.snippetviewer;
+package com.itaas.ankit.snippetviewer.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.itaas.ankit.snippetviewer.R;
 
 /**
  * A simple settings screen that allows the data URL to configured
